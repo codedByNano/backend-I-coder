@@ -1,7 +1,0 @@
-TODO ESTO LO INSTALE DESDE EL BASH A MEDIDA QUE SE FUERON PRESENTANDO EN EL PROYECTO
-
-npm init -y
-
-npm install nodemon
-
-npm i express
