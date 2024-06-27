@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "start:act1": "nodemon actividad1.js",
+    "start:act2": "nodemon actividad2.js"
   },
   "keywords": [],
   "author": "",
