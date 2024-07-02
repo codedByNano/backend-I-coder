@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon index.js",
+    "start:dev": "nodemon ./src/app.js",
     "start:act1": "nodemon actividad1.js",
     "start:act2": "nodemon actividad2.js"
   },
@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4"
   }
 }
