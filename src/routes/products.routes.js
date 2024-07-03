@@ -19,7 +19,7 @@ router.get("/:pid", async (req, res) => {
   const { pid } = req.params;
   const product = await productManager.getProductById(pid);
   if (product) {
-    res.json(product);
+    res.status(201).json({ resultado: product });
   } else {
     res.status(404).json({ error: "Producto no encontrado" });
   }
