@@ -27,12 +27,17 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const product = req.body;
-  await productManager.addProduct(product);
-  res.status(201).json({ message: "Producto añadido" });
+  try {
+    await productManager.addProduct(product);
+    res.status(201).json({ message: "Producto añadido" });
+  } catch (error) {
+    res.status(400).json({ error: "El producto que intenta añadir ya existe" });
+  }
 });
 
 router.put("/:pid", async (req, res) => {
   const { pid } = req.params;
+  const prodUpdate = req.body;
   await productManager.updateProduct(pid, prodUpdate);
   res.status(200).json({ message: "Producto actualizado" });
 });

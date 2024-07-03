@@ -71,9 +71,12 @@ class ProductManager {
     const index = this.productList.findIndex(
       (product) => product.id === parseInt(id)
     );
-    if (index === -1) return null;
-    const deletedProduct = this.product.splice(index, 1);
 
+    if (index === -1) {
+      throw new Error(`El producto con ID ${id} no existe`);
+    }
+
+    const deletedProduct = this.productList.splice(index, 1);
     await fs.promises.writeFile(
       this.path,
       JSON.stringify({ data: this.productList })
