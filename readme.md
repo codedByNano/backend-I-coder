@@ -13,6 +13,9 @@ Dependencias:
 Para inicializar abrir la consola y ejecutar
 
 > npm i
+
+luego
+
 > npm run dev
 
 Y luego entrar en el navegador a
