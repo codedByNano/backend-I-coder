@@ -49,6 +49,8 @@ class ProductManager {
       this.path,
       JSON.stringify({ data: this.productList })
     );
+
+    return newProduct;
   }
 
   async updateProduct(id, productData) {
