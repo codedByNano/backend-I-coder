@@ -1,1 +1,158 @@
-{"data":[{"id":1,"title":"Camiseta Blanca Actualizada","description":"Camiseta básica blanca de algodón actualizada","code":"TSHIRT001","price":25,"status":true,"stock":100,"category":"Ropa","thumbnails":[]},{"id":2,"title":"Pantalón Vaquero","description":"Pantalón vaquero clásico de mezclilla azul","code":"JEANS001","price":40,"status":true,"stock":50,"category":"Ropa","thumbnails":[]},{"id":3,"title":"Zapatos de Cuero","description":"Zapatos formales de cuero","code":"ZAP001","price":2000,"status":true,"stock":20,"category":"Calzado","thumbnails":[]},{"id":4,"title":"Chaqueta de Cuero","description":"Chaqueta de cuero negra","code":"CHA001","price":3500,"status":true,"stock":15,"category":"Ropa","thumbnails":[]},{"id":5,"title":"Gorra Deportiva","description":"Gorra deportiva azul","code":"GOR001","price":500,"status":true,"stock":100,"category":"Accesorios","thumbnails":[]},{"id":6,"title":"Bufanda de Lana","description":"Bufanda de lana gris","code":"BUF001","price":700,"status":true,"stock":40,"category":"Accesorios","thumbnails":[]},{"id":7,"title":"Reloj de Pulsera","description":"Reloj de pulsera con correa de cuero","code":"REL001","price":5000,"status":true,"stock":25,"category":"Accesorios","thumbnails":[]},{"id":8,"title":"Mochila Escolar","description":"Mochila escolar con compartimentos múltiples","code":"MOC001","price":1200,"status":true,"stock":60,"category":"Accesorios","thumbnails":[]},{"id":9,"title":"Cinturón de Cuero","description":"Cinturón de cuero marrón","code":"CIN001","price":800,"status":true,"stock":45,"category":"Accesorios","thumbnails":[]},{"id":10,"title":"Calcetines Deportivos","description":"Calcetines deportivos blancos","code":"CAL001","price":300,"status":true,"stock":200,"category":"Ropa","thumbnails":[]},{"id":11,"title":"Sombrero de Paja","description":"Sombrero de paja para el sol","code":"SOM001","price":600,"status":true,"stock":35,"category":"Accesorios","thumbnails":[]},{"id":12,"title":"Chaleco Reflectante","description":"Chaleco reflectante para ciclismo","code":"CHA002","price":900,"status":true,"stock":25,"category":"Ropa","thumbnails":[]},{"id":13,"title":"Pantalones Cortos","description":"Pantalones cortos de deporte","code":"PAN002","price":800,"status":true,"stock":50,"category":"Ropa","thumbnails":[]},{"id":14,"title":"Camisa Formal","description":"Camisa formal blanca de algodón para hombre","code":"SHIRT002","price":45,"status":true,"stock":30,"category":"Ropa","thumbnails":[]}]}
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Camiseta Blanca Actualizada",
+      "description": "Camiseta básica blanca de algodón actualizada",
+      "code": "TSHIRT001",
+      "price": 25,
+      "status": true,
+      "stock": 100,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 2,
+      "title": "Pantalón Vaquero",
+      "description": "Pantalón vaquero clásico de mezclilla azul",
+      "code": "JEANS001",
+      "price": 40,
+      "status": true,
+      "stock": 50,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 3,
+      "title": "Zapatos de Cuero",
+      "description": "Zapatos formales de cuero",
+      "code": "ZAP001",
+      "price": 2000,
+      "status": true,
+      "stock": 20,
+      "category": "Calzado",
+      "thumbnails": []
+    },
+    {
+      "id": 4,
+      "title": "Chaqueta de Cuero",
+      "description": "Chaqueta de cuero negra",
+      "code": "CHA001",
+      "price": 3500,
+      "status": true,
+      "stock": 15,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 5,
+      "title": "Gorra Deportiva",
+      "description": "Gorra deportiva azul",
+      "code": "GOR001",
+      "price": 500,
+      "status": true,
+      "stock": 100,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 6,
+      "title": "Bufanda de Lana",
+      "description": "Bufanda de lana gris",
+      "code": "BUF001",
+      "price": 700,
+      "status": true,
+      "stock": 40,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 7,
+      "title": "Reloj de Pulsera",
+      "description": "Reloj de pulsera con correa de cuero",
+      "code": "REL001",
+      "price": 5000,
+      "status": true,
+      "stock": 25,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 8,
+      "title": "Mochila Escolar",
+      "description": "Mochila escolar con compartimentos múltiples",
+      "code": "MOC001",
+      "price": 1200,
+      "status": true,
+      "stock": 60,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 9,
+      "title": "Cinturón de Cuero",
+      "description": "Cinturón de cuero marrón",
+      "code": "CIN001",
+      "price": 800,
+      "status": true,
+      "stock": 45,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 10,
+      "title": "Calcetines Deportivos",
+      "description": "Calcetines deportivos blancos",
+      "code": "CAL001",
+      "price": 300,
+      "status": true,
+      "stock": 200,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 11,
+      "title": "Sombrero de Paja",
+      "description": "Sombrero de paja para el sol",
+      "code": "SOM001",
+      "price": 600,
+      "status": true,
+      "stock": 35,
+      "category": "Accesorios",
+      "thumbnails": []
+    },
+    {
+      "id": 12,
+      "title": "Chaleco Reflectante",
+      "description": "Chaleco reflectante para ciclismo",
+      "code": "CHA002",
+      "price": 900,
+      "status": true,
+      "stock": 25,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 13,
+      "title": "Pantalones Cortos",
+      "description": "Pantalones cortos de deporte",
+      "code": "PAN002",
+      "price": 800,
+      "status": true,
+      "stock": 50,
+      "category": "Ropa",
+      "thumbnails": []
+    },
+    {
+      "id": 14,
+      "title": "Camisa Formal",
+      "description": "Camisa formal blanca de algodón para hombre",
+      "code": "SHIRT002",
+      "price": 45,
+      "status": true,
+      "stock": 30,
+      "category": "Ropa",
+      "thumbnails": []
+    }
+  ]
+}

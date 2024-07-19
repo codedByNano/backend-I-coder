@@ -2,10 +2,10 @@ import express from "express";
 import { __dirname } from "./util.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
+import viewsRouter from "./routes/views.routes.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
-import { log } from "console";
 
 const PORT = 8080;
 const app = express();
@@ -20,10 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-
-app.get("/", (req, res) => {
-  res.render("index", { title: "Test handlebars" });
-});
+app.use("/", viewsRouter);
 
 io.on("connection", (socket) => {
   console.log("Cliente conectado");
@@ -33,6 +30,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor listo, escuchando en puerto ${PORT}`);
+httpServer.listen(PORT, () => {
+  console.log(`Servidor listo, http://localhost:${PORT}`);
 });
+
+export { io };

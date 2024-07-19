@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { io } from "../app.js";
 
 class ProductManager {
   constructor(path) {
@@ -50,6 +51,8 @@ class ProductManager {
       JSON.stringify({ data: this.productList })
     );
 
+    io.emit("ProductUpdate", this.productList);
+
     return newProduct;
   }
 
@@ -83,6 +86,9 @@ class ProductManager {
       this.path,
       JSON.stringify({ data: this.productList })
     );
+
+    io.emit("ProductUpdate", this.productList);
+
     return deletedProduct;
   }
 }

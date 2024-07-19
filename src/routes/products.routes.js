@@ -28,8 +28,8 @@ router.get("/:pid", async (req, res) => {
 router.post("/", async (req, res) => {
   const product = req.body;
   try {
-    await productManager.addProduct(product);
-    res.status(201).json({ message: "Producto añadido" });
+    const newProduct = await productManager.addProduct(product);
+    res.status(201).json({ message: "Producto añadido", product: newProduct });
   } catch (error) {
     res.status(400).json({ error: "El producto que intenta añadir ya existe" });
   }
@@ -44,8 +44,10 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   const { pid } = req.params;
-  await productManager.deleteProduct(pid);
-  res.status(200).json({ message: "Producto eliminado" });
+  const deletedProduct = await productManager.deleteProduct(pid);
+  res
+    .status(200)
+    .json({ message: "Producto eliminado", product: deletedProduct });
 });
 
 export default router;
