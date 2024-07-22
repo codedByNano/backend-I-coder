@@ -1,9 +1,19 @@
 <h1>Lista de Productos en Tiempo Real</h1>
-<ul id="product-list">
+<div id="productsContainer">
   {{#each products}}
-    <li>{{this.title}} - {{this.price}}</li>
+    <div class="productCard">
+      <h2>{{this.title}}</h2>
+      <p><strong>ID:</strong> {{this.id}}</p>
+      <p><strong>Descripción:</strong> {{this.description}}</p>
+      <p><strong>Código:</strong> {{this.code}}</p>
+      <p><strong>Precio:</strong> ${{this.price}}</p>
+      <p><strong>Estado:</strong>
+        {{#if this.status}}Disponible{{else}}No disponible{{/if}}</p>
+      <p><strong>Stock:</strong> {{this.stock}}</p>
+      <p><strong>Categoría:</strong> {{this.category}}</p>
+    </div>
   {{/each}}
-</ul>
+</div>
 
 <form id="product-form">
   <input type="text" id="title" placeholder="Título" required />
@@ -16,4 +26,4 @@
 </form>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="../public/realTimeProducts.js"></script>
+<script src="../../public/realTimeProducts.js"></script>

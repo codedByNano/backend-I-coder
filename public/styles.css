@@ -1,0 +1,20 @@
+.productContainer {
+  display: flex;
+}
+
+.productCard {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.productCard h2 {
+  margin-top: 0;
+}
+
+.productCard p {
+  margin: 8px 0;
+}

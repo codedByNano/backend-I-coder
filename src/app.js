@@ -18,6 +18,7 @@ app.set("views", __dirname + "/views");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/../public"));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
@@ -27,6 +28,11 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
+  });
+
+  socket.on("newProduct", (product) => {
+    console.log("Nuevo producto:", product);
+    io.emit("ProductUpdate");
   });
 });
 
