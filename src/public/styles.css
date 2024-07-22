@@ -1,14 +1,23 @@
-.productsContainer {
+#productsContainer,
+.formContainer {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-evenly;
+}
+
+.formContainer {
+  margin-top: 30px;
 }
 
 .productCard {
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
-  margin: 16px;
   max-width: 300px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1 1 calc(33% - 32px);
+  box-sizing: border-box;
 }
 
 .productCard h2 {
@@ -17,4 +26,15 @@
 
 .productCard p {
   margin: 8px 0;
+}
+
+.addForm,
+.editForm,
+.delForm {
+  flex: 1;
+  max-width: 300px;
+}
+
+.delForm {
+  max-width: 150px;
 }
