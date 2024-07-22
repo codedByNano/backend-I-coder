@@ -9,8 +9,13 @@ class ProductManager {
   }
 
   async getProducts() {
-    const list = await fs.promises.readFile(this.path, "utf-8");
-    this.productList = [...JSON.parse(list).data];
+    try {
+      const list = await fs.promises.readFile(this.path, "utf-8");
+      this.productList = [...JSON.parse(list).data];
+    } catch (error) {
+      console.error("Error reading products file:", error);
+      this.productList = [];
+    }
     return [...this.productList];
   }
 
@@ -44,15 +49,18 @@ class ProductManager {
       category: product.category,
       thumbnails: product.thumbnails || [],
     };
-
     this.productList.push(newProduct);
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.productList })
-    );
+
+    try {
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify({ data: this.productList })
+      );
+    } catch (error) {
+      console.error("Error writing products file:", error);
+    }
 
     io.emit("ProductUpdate", this.productList);
-
     return newProduct;
   }
 
@@ -62,12 +70,20 @@ class ProductManager {
       (product) => product.id === parseInt(id)
     );
     if (index === -1) return null;
+
     const product = this.productList[index];
     this.productList[index] = { ...product, ...productData, id: product.id };
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.productList })
-    );
+
+    try {
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify({ data: this.productList })
+      );
+    } catch (error) {
+      console.error("Error writing products file:", error);
+    }
+
+    io.emit("ProductUpdate", this.productList);
     return this.productList[index];
   }
 
@@ -82,10 +98,15 @@ class ProductManager {
     }
 
     const deletedProduct = this.productList.splice(index, 1);
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.productList })
-    );
+
+    try {
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify({ data: this.productList })
+      );
+    } catch (error) {
+      console.error("Error writing products file:", error);
+    }
 
     io.emit("ProductUpdate", this.productList);
 
