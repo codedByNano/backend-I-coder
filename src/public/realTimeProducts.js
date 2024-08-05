@@ -1,14 +1,6 @@
 const socket = io();
 
-function showMessage(message) {
-  const messageContainer = document.getElementById("messageContainer");
-  messageContainer.innerHTML = `<p>${message}</p>`;
-  setTimeout(() => {
-    messageContainer.innerHTML = "";
-  }, 3000);
-}
-
-socket.on("productAdded", (product) => {
+socket.on("addProduct", (product, callback) => {
   alert(`Producto agregado: ${product.title}`);
 });
 
