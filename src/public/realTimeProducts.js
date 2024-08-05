@@ -1,5 +1,25 @@
 const socket = io();
 
+function showMessage(message) {
+  const messageContainer = document.getElementById("messageContainer");
+  messageContainer.innerHTML = `<p>${message}</p>`;
+  setTimeout(() => {
+    messageContainer.innerHTML = "";
+  }, 3000);
+}
+
+socket.on("productAdded", (product) => {
+  alert(`Producto agregado: ${product.title}`);
+});
+
+socket.on("productEdited", (product) => {
+  alert(`Producto editado: ${product.title}`);
+});
+
+socket.on("productDeleted", () => {
+  alert(`Producto eliminado`);
+});
+
 function renderProducts(products) {
   const productsContainer = document.getElementById("productsContainer");
   productsContainer.innerHTML = products
@@ -36,8 +56,13 @@ addProductForm.addEventListener("submit", (event) => {
     stock: parseInt(document.getElementById("stock").value),
     category: document.getElementById("category").value,
   };
-  socket.emit("addProduct", newProduct);
-  addProductForm.reset();
+  socket.emit("addProduct", newProduct, (req, res) => {
+    if (res.error) {
+      alert(res.error);
+    } else {
+      addProductForm.reset();
+    }
+  });
 });
 
 const editProductForm = document.getElementById("editProductForm");
