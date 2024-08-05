@@ -1,57 +1,50 @@
-import fs from "node:fs";
+import cart from '../models/cart.model.js';
 
 class CartManager {
-  constructor(path) {
-    this.path = path;
-    this.carts = [];
-    this.nextId = 1;
-  }
-
   async getCarts() {
-    const list = await fs.promises.readFile(this.path, "utf-8");
-    this.carts = JSON.parse(list).data;
-    return this.carts;
-  }
-
-  async createCart() {
-    await this.getCarts();
-
-    if (this.carts.length > 0) {
-      this.nextId = Math.max(...this.carts.map((c) => c.id)) + 1;
+    try {
+      return await cart.find().populate('products.product');
+    } catch (error) {
+      console.error('Error getting carts:', error);
+      throw new Error('Error getting carts');
     }
-
-    const newCart = {
-      id: this.nextId++,
-      products: [],
-    };
-    this.carts.push(newCart);
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.carts })
-    );
-    return newCart;
   }
 
   async getCartById(id) {
-    await this.getCarts();
-    return this.carts.find((cart) => cart.id === parseInt(id));
+    try {
+      return await cart.findById(id).populate('products.product');
+    } catch (error) {
+      console.error(`Error getting cart with id ${id}:`, error);
+      throw new Error(`Error getting cart with id ${id}`);
+    }
   }
 
-  async addProductToCart(cid, pid) {
-    await this.getCarts();
-    const cart = this.carts.find((cart) => cart.id === parseInt(cid));
-    if (!cart) return null;
-    const productIndex = cart.products.findIndex((p) => p.id === parseInt(pid));
-    if (productIndex === -1) {
-      cart.products.push({ id: parseInt(pid), quantity: 1 });
-    } else {
-      cart.products[productIndex].quantity += 1;
+  async createCart() {
+    try {
+      const cart = new cart({ products: [] });
+      return await cart.save();
+    } catch (error) {
+      console.error('Error creating cart:', error);
+      throw new Error('Error creating cart');
     }
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.carts })
-    );
-    return cart;
+  }
+
+  async addProductToCart(cartId, productId, quantity) {
+    try {
+      const cart = await cart.findById(cartId);
+      const productIndex = cart.products.findIndex(p => p.product.equals(productId));
+      
+      if (productIndex > -1) {
+        cart.products[productIndex].quantity += quantity;
+      } else {
+        cart.products.push({ product: productId, quantity });
+      }
+      
+      return await cart.save();
+    } catch (error) {
+      console.error(`Error adding product to cart with id ${cartId}:`, error);
+      throw new Error(`Error adding product to cart with id ${cartId}`);
+    }
   }
 }
 

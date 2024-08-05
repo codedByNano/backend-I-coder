@@ -1,16 +1,16 @@
 <h1>Lista de Productos en Tiempo Real</h1>
 <div class="productsContainer" id="productsContainer">
-  {{#each products}}
+  {{#each cleanedProducts}}
     <div class="productCard">
-      <h2>{{this.title}}</h2>
-      <p><strong>ID:</strong> {{this.id}}</p>
-      <p><strong>Descripción:</strong> {{this.description}}</p>
-      <p><strong>Código:</strong> {{this.code}}</p>
-      <p><strong>Precio:</strong> ${{this.price}}</p>
+      <h2>{{title}}</h2>
+      <p><strong>ID:</strong> {{id}}</p>
+      <p><strong>Descripción:</strong> {{description}}</p>
+      <p><strong>Código:</strong> {{code}}</p>
+      <p><strong>Precio:</strong> ${{price}}</p>
       <p><strong>Estado:</strong>
-        {{#if this.status}}Disponible{{else}}No disponible{{/if}}</p>
-      <p><strong>Stock:</strong> {{this.stock}}</p>
-      <p><strong>Categoría:</strong> {{this.category}}</p>
+        {{#if status}}Disponible{{else}}No disponible{{/if}}</p>
+      <p><strong>Stock:</strong> {{stock}}</p>
+      <p><strong>Categoría:</strong> {{category}}</p>
     </div>
   {{/each}}
 </div>
@@ -42,7 +42,7 @@
   </form>
 
   <form id="deleteProductForm" class="delForm">
-    <input type="number" id="deleteId" placeholder="ID del producto" required />
+    <input type="text" id="deleteId" placeholder="ID del producto" required />
     <button type="submit">Eliminar Producto</button>
   </form>
 </div>

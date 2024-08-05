@@ -1,9 +1,8 @@
 import express from "express";
 import CartManager from "../class/cartManager.js";
-import { __dirname } from "../util.js";
 
 const router = express.Router();
-const cartManager = new CartManager(__dirname + "/data/cart.json");
+const cartManager = new CartManager();
 
 router.post("/", async (req, res) => {
   await cartManager.createCart();

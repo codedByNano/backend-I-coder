@@ -1,9 +1,8 @@
 import express from "express";
 import ProductManager from "../class/productManager.js";
-import { __dirname } from "../util.js";
 
 const router = express.Router();
-const productManager = new ProductManager(__dirname + "/data/product.json");
+const productManager = new ProductManager();
 
 router.get("/", async (req, res) => {
   const limit = parseInt(req.query.limit);

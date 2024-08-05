@@ -1,8 +1,7 @@
 import { io } from "../app.js";
 import ProductManager from "../class/productManager.js";
-import { __dirname } from "../util.js";
 
-const productManager = new ProductManager(__dirname + "/data/product.json");
+const productManager = new ProductManager();
 
 export default function setupSocketHandlers() {
   io.on("connection", async (socket) => {
