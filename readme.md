@@ -9,6 +9,7 @@ Dependencias:
 - Multer
 - Express Handlebars
 - Socket.io
+- Mongoose
 
 Para inicializar abrir la consola y ejecutar
 

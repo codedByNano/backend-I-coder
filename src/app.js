@@ -7,11 +7,19 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
 import setupSocketHandlers from "./sockets/socketHandlers.js";
+import mongoose from "mongoose";
 
 const PORT = 8080;
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
+const uri =
+  "mongodb+srv://martiniano:CC4JPvAnMi9GeoTY@coder-back.8pgqsfy.mongodb.net/?retryWrites=true&w=majority&appName=coder-back";
+
+mongoose
+  .connect(uri)
+  .then(() => console.log("Conectado a MongoDB"))
+  .catch((err) => console.error("Error al conectar a MongoDB", err));
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");

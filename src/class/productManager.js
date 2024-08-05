@@ -1,22 +1,15 @@
 import fs from "node:fs";
 import { io } from "../app.js";
+import product from "../models/product.model.js";
 
 class ProductManager {
-  constructor(path) {
-    this.path = path;
-    this.productList = [];
-    this.nextId = 1;
-  }
-
   async getProducts() {
     try {
-      const list = await fs.promises.readFile(this.path, "utf-8");
-      this.productList = [...JSON.parse(list).data];
+      return await product.find();
     } catch (error) {
-      console.error("Error reading products file:", error);
-      this.productList = [];
+      console.error("Error geting products:", error);
+      throw new Error("Error geting products");
     }
-    return [...this.productList];
   }
 
   async getProductById(id) {
