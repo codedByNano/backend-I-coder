@@ -1,9 +1,5 @@
 const socket = io();
 
-socket.on("connect", () => {
-  console.log(`Conectado al servidor con ID: ${socket.id}`);
-});
-
 function renderProducts(products) {
   const productsContainer = document.getElementById("productsContainer");
   productsContainer.innerHTML = products
