@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import express from "express";
 import { __dirname } from "./util.js";
 import productRouter from "./routes/products.routes.js";
@@ -9,12 +11,26 @@ import { engine } from "express-handlebars";
 import setupSocketHandlers from "./sockets/socketHandlers.js";
 import mongoose from "mongoose";
 
+const envPath = path.resolve(__dirname, "../.env");
+
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, "utf-8");
+  console.log("Contenido del archivo .env:", envContent);
+  envContent.split("\n").forEach((line) => {
+    const [key, ...valueParts] = line.split("=");
+    if (key && valueParts.length > 0) {
+      const value = valueParts.join("=").trim();
+      process.env[key.trim()] = value;
+    }
+  });
+}
+
 const PORT = 8080;
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-const uri =
-  "mongodb+srv://martiniano:CC4JPvAnMi9GeoTY@coder-back.8pgqsfy.mongodb.net/?retryWrites=true&w=majority&appName=coder-back";
+
+const uri = process.env.MONGODB_URI;
 
 mongoose
   .connect(uri)

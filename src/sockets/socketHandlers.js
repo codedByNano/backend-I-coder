@@ -1,9 +1,8 @@
-import { io } from "../app.js";
 import ProductManager from "../class/productManager.js";
 
 const productManager = new ProductManager();
 
-export default function setupSocketHandlers() {
+export default function setupSocketHandlers(io) {
   io.on("connection", async (socket) => {
     console.log(`Cliente conectado, ID: ${socket.id}`);
 

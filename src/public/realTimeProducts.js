@@ -1,15 +1,7 @@
 const socket = io();
 
-socket.on("addProduct", (product) => {
-  alert(`Producto agregado: ${product.title}`);
-});
-
-socket.on("productEdited", (product) => {
-  alert(`Producto editado: ${product.title}`);
-});
-
-socket.on("productDeleted", () => {
-  alert(`Producto eliminado`);
+socket.on("connect", () => {
+  console.log(`Conectado al servidor con ID: ${socket.id}`);
 });
 
 function renderProducts(products) {
@@ -57,6 +49,10 @@ addProductForm.addEventListener("submit", (event) => {
   });
 });
 
+socket.on("addProduct", (product) => {
+  alert(`Producto agregado: ${product.title}`);
+});
+
 const editProductForm = document.getElementById("editProductForm");
 editProductForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -78,6 +74,10 @@ editProductForm.addEventListener("submit", (event) => {
   });
 });
 
+socket.on("productEdited", (product) => {
+  alert(`Producto editado: ${product.title}`);
+});
+
 const deleteProductForm = document.getElementById("deleteProductForm");
 deleteProductForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -90,3 +90,8 @@ deleteProductForm.addEventListener("submit", (event) => {
     }
   });
 });
+
+socket.on("productDeleted", () => {
+  alert(`Producto eliminado`);
+});
+
