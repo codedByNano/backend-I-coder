@@ -1,6 +1,6 @@
 const socket = io();
 
-socket.on("addProduct", (product, callback) => {
+socket.on("addProduct", (product) => {
   alert(`Producto agregado: ${product.title}`);
 });
 
@@ -69,14 +69,24 @@ editProductForm.addEventListener("submit", (event) => {
     stock: parseInt(document.getElementById("editStock").value),
     category: document.getElementById("editCategory").value,
   };
-  socket.emit("editProduct", updatedProduct);
-  editProductForm.reset();
+  socket.emit("editProduct", updatedProduct, (req, res) => {
+    if (res.error) {
+      alert(res.error);
+    } else {
+      editProductForm.reset();
+    }
+  });
 });
 
 const deleteProductForm = document.getElementById("deleteProductForm");
 deleteProductForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const id = parseInt(document.getElementById("deleteId").value);
-  socket.emit("deleteProduct", id);
-  deleteProductForm.reset();
+  socket.emit("deleteProduct", id, (req, res) => {
+    if (res.error) {
+      alert(res.error);
+    } else {
+      deleteProductForm.reset();
+    }
+  });
 });

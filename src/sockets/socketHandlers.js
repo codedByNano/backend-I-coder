@@ -7,23 +7,28 @@ export default function setupSocketHandlers() {
   io.on("connection", async (socket) => {
     console.log(`Cliente conectado, ID: ${socket.id}`);
 
-    socket.on("addProduct", async (product) => {
+    socket.on("addProduct", async (product, callback) => {
       try {
         const newProduct = await productManager.addProduct(product);
         io.emit("ProductUpdate", await productManager.getProducts());
-        socket.emit("productAdded", newProduct);
+        callback({ error: null, product: newProduct });
       } catch (error) {
         console.error("Error adding product:", error);
+        callback({ error: "Error adding product" });
       }
     });
 
-    socket.on("editProduct", async (product) => {
+    socket.on("editProduct", async (product, callback) => {
       try {
-        await productManager.updateProduct(product.id, product);
+        const updatedProduct = await productManager.updateProduct(
+          product.id,
+          product
+        );
         io.emit("ProductUpdate", await productManager.getProducts());
-        socket.emit("productEdited", product);
+        callback({ error: null, product: updatedProduct });
       } catch (error) {
         console.error("Error editing product:", error);
+        callback({ error: "Error editing product" });
       }
     });
 
@@ -31,9 +36,10 @@ export default function setupSocketHandlers() {
       try {
         await productManager.deleteProduct(id);
         io.emit("ProductUpdate", await productManager.getProducts());
-        socket.emit("productDeleted", id);
+        callback({ error: null });
       } catch (error) {
         console.error("Error deleting product:", error);
+        callback({ error: "Error deleting product" });
       }
     });
 
