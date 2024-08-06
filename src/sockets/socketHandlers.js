@@ -31,7 +31,7 @@ export default function setupSocketHandlers(io) {
       }
     });
 
-    socket.on("deleteProduct", async (id) => {
+    socket.on("deleteProduct", async (id, callback) => {
       try {
         await productManager.deleteProduct(id);
         io.emit("ProductUpdate", await productManager.getProducts());

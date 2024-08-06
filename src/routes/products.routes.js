@@ -5,48 +5,58 @@ const router = express.Router();
 const productManager = new ProductManager();
 
 router.get("/", async (req, res) => {
-  const limit = parseInt(req.query.limit);
-  const productList = await productManager.getProducts();
-  if (limit) {
-    res.json(productList.slice(0, limit));
-  } else {
-    res.json(productList);
+  try {
+    const limit = parseInt(req.query.limit);
+    const productList = await productManager.getProducts();
+    if (limit) {
+      res.json(productList.slice(0, limit));
+    } else {
+      res.json(productList);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
 router.get("/:pid", async (req, res) => {
   const { pid } = req.params;
-  const product = await productManager.getProductById(pid);
-  if (product) {
+  try {
+    const product = await productManager.getProductById(pid);
     res.status(201).json({ resultado: product });
-  } else {
-    res.status(404).json({ error: "Producto no encontrado" });
+  } catch (error) {
+    res.status(404).json({ error: error.message });
   }
 });
 
 router.post("/", async (req, res) => {
-  const product = req.body;
+  const productData = req.body;
   try {
-    const newProduct = await productManager.addProduct(product);
-    res.status(201).json({ message: "Producto añadido", product: newProduct });
+    const newProduct = await productManager.addProduct(productData);
+    res.status(201).json(newProduct);
   } catch (error) {
-    res.status(400).json({ error: "El producto que intenta añadir ya existe" });
+    res.status(500).json({ error: Error.message });
   }
 });
 
 router.put("/:pid", async (req, res) => {
   const { pid } = req.params;
-  const prodUpdate = req.body;
-  await productManager.updateProduct(pid, prodUpdate);
-  res.status(200).json({ message: "Producto actualizado" });
+  const productData = req.body;
+  try {
+    const updatedProduct = await productManager.updateProduct(pid, productData);
+    res.status(200).json(updatedProduct);
+  } catch {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.delete("/:pid", async (req, res) => {
   const { pid } = req.params;
-  const deletedProduct = await productManager.deleteProduct(pid);
-  res
-    .status(200)
-    .json({ message: "Producto eliminado", product: deletedProduct });
+  try {
+    const deletedProduct = await productManager.deleteProduct(pid);
+    res.status(204).send();
+  } catch {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 export default router;

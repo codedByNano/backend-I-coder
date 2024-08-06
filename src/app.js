@@ -12,10 +12,8 @@ import setupSocketHandlers from "./sockets/socketHandlers.js";
 import mongoose from "mongoose";
 
 const envPath = path.resolve(__dirname, "../.env");
-
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, "utf-8");
-  console.log("Contenido del archivo .env:", envContent);
   envContent.split("\n").forEach((line) => {
     const [key, ...valueParts] = line.split("=");
     if (key && valueParts.length > 0) {

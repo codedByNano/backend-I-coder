@@ -1,10 +1,10 @@
 import { io } from "../app.js";
-import product from "../models/product.model.js";
+import Product from "../models/product.model.js";
 
 class ProductManager {
   async getProducts() {
     try {
-      return await product.find();
+      return await Product.find();
     } catch (error) {
       console.error("Error geting products:", error);
       throw new Error("Error geting products");
@@ -13,8 +13,7 @@ class ProductManager {
 
   async getProductById(id) {
     try {
-      const product = await product.findById(id);
-      return product;
+      return await Product.findById(id);
     } catch (error) {
       console.error(`Error getting product with id ${id}`, error);
       throw new Error(`Error getting product with id ${id}`);
@@ -23,9 +22,14 @@ class ProductManager {
 
   async addProduct(productData) {
     try {
-      const product = new product(productData);
+      const isExists = await Product.findOne({ code: productData.code })
+      if (isExists) {
+        throw new error("¡El código de producto ya existe!")
+      }
+
+      const product = new Product(productData);
       const prodAdded = await product.save();
-      io.emit("ProductUpdate", prodAdded);
+      io.emit("ProductUpdate", await this.getProducts());
       return prodAdded;
     } catch (error) {
       console.error("Error adding product:", error);
@@ -35,10 +39,10 @@ class ProductManager {
 
   async updateProduct(id, productData) {
     try {
-      const prodUpdated = await product.findByIdAndUpdate(id, productData, {
+      const prodUpdated = await Product.findByIdAndUpdate(id, productData, {
         new: true,
       });
-      io.emit("ProductUpdate", prodUpdated);
+      io.emit("ProductUpdate", await this.getProducts());
       return prodUpdated;
     } catch (error) {
       console.error(`Error updating product with id ${id}:`, error);
@@ -48,8 +52,8 @@ class ProductManager {
 
   async deleteProduct(id) {
     try {
-      const prodDeleted = await product.findByIdAndDelete(id);
-      io.emit("ProductUpdate", prodDeleted);
+      const prodDeleted = await Product.findByIdAndDelete(id);
+      io.emit("ProductUpdate", await this.getProducts());
       return prodDeleted;
     } catch (error) {
       console.error(`Error deleting product with id ${id}:`, error);

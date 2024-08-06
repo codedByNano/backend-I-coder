@@ -7,7 +7,7 @@ function renderProducts(products) {
       (product) =>
         `<div class="productCard">
       <h2>${product.title}</h2>
-      <p><strong>ID:</strong> ${product.id}</p>
+      <p><strong>ID:</strong> ${product._id}</p>
       <p><strong>Descripción:</strong> ${product.description}</p>
       <p><strong>Código:</strong> ${product.code}</p>
       <p><strong>Precio:</strong> $${product.price}</p>
@@ -22,6 +22,7 @@ function renderProducts(products) {
 }
 
 socket.on("ProductUpdate", (products) => {
+  console.log("Products updated: ", products);
   renderProducts(products);
 });
 
@@ -37,22 +38,15 @@ addProductForm.addEventListener("submit", (event) => {
     category: document.getElementById("category").value,
   };
   socket.emit("addProduct", newProduct, (req, res) => {
-    if (res.error) {
-      alert(res.error);
-    } else {
-      addProductForm.reset();
-    }
+    alert(`Producto agregado: ${res.product.title}`);
+    addProductForm.reset();
   });
-});
-
-socket.on("addProduct", (product) => {
-  alert(`Producto agregado: ${product.title}`);
 });
 
 const editProductForm = document.getElementById("editProductForm");
 editProductForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const id = parseInt(document.getElementById("editId").value);
+  const id = document.getElementById("editId").value.trim();
   const updatedProduct = {
     id: id,
     title: document.getElementById("editTitle").value,
@@ -61,33 +55,20 @@ editProductForm.addEventListener("submit", (event) => {
     stock: parseInt(document.getElementById("editStock").value),
     category: document.getElementById("editCategory").value,
   };
-  socket.emit("editProduct", updatedProduct, (req, res) => {
-    if (res.error) {
-      alert(res.error);
-    } else {
-      editProductForm.reset();
-    }
-  });
-});
 
-socket.on("productEdited", (product) => {
-  alert(`Producto editado: ${product.title}`);
+  socket.emit("editProduct", updatedProduct, (req, res) => {
+    alert(`Producto editado ${res.product.title}`);
+    editProductForm.reset();
+  });
 });
 
 const deleteProductForm = document.getElementById("deleteProductForm");
 deleteProductForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const id = parseInt(document.getElementById("deleteId").value);
+  const id = document.getElementById("deleteId").value.trim();
+  
   socket.emit("deleteProduct", id, (req, res) => {
-    if (res.error) {
-      alert(res.error);
-    } else {
-      deleteProductForm.reset();
-    }
+    alert(`Producto eliminado`);
+    deleteProductForm.reset();
   });
 });
-
-socket.on("productDeleted", () => {
-  alert(`Producto eliminado`);
-});
-

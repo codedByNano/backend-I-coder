@@ -1,9 +1,9 @@
-import cart from '../models/cart.model.js';
+import Cart from '../models/cart.model.js';
 
 class CartManager {
   async getCarts() {
     try {
-      return await cart.find().populate('products.product');
+      return await Cart.find().populate('products.product');
     } catch (error) {
       console.error('Error getting carts:', error);
       throw new Error('Error getting carts');
@@ -12,7 +12,7 @@ class CartManager {
 
   async getCartById(id) {
     try {
-      return await cart.findById(id).populate('products.product');
+      return await Cart.findById(id).populate('products.product');
     } catch (error) {
       console.error(`Error getting cart with id ${id}:`, error);
       throw new Error(`Error getting cart with id ${id}`);
@@ -21,8 +21,8 @@ class CartManager {
 
   async createCart() {
     try {
-      const cart = new cart({ products: [] });
-      return await cart.save();
+      const newCart = new Cart({ products: [] });
+      return await newCart.save();
     } catch (error) {
       console.error('Error creating cart:', error);
       throw new Error('Error creating cart');
@@ -31,16 +31,16 @@ class CartManager {
 
   async addProductToCart(cartId, productId, quantity) {
     try {
-      const cart = await cart.findById(cartId);
-      const productIndex = cart.products.findIndex(p => p.product.equals(productId));
+      const currentCart = await Cart.findById(cartId);
+      const productIndex = currentCart.products.findIndex(p => p.product.equals(productId));
       
       if (productIndex > -1) {
-        cart.products[productIndex].quantity += quantity;
+        currentCart.products[productIndex].quantity += quantity;
       } else {
-        cart.products.push({ product: productId, quantity });
+        currentCart.products.push({ product: productId, quantity });
       }
       
-      return await cart.save();
+      return await currentCart.save();
     } catch (error) {
       console.error(`Error adding product to cart with id ${cartId}:`, error);
       throw new Error(`Error adding product to cart with id ${cartId}`);
