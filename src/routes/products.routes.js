@@ -6,13 +6,15 @@ const productManager = new ProductManager();
 
 router.get("/", async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit);
-    const productList = await productManager.getProducts();
-    if (limit) {
-      res.json(productList.slice(0, limit));
-    } else {
-      res.json(productList);
-    }
+    const { limit, page, sort, query } = req.query;
+    const options = {
+      limit: limit || 10,
+      page: page || 1,
+      sort: sort || "",
+      query: query ? JSON.parse(query) : {},
+    };
+    const productList = await productManager.getProducts(options);
+    res.json(productList);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

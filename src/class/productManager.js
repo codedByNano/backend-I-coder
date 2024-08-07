@@ -2,9 +2,43 @@ import { io } from "../app.js";
 import Product from "../models/product.model.js";
 
 class ProductManager {
-  async getProducts() {
+  async getProducts(options = {}) {
     try {
-      return await Product.find();
+      const { limit = 10, page = 1, sort, query } = options;
+      const filter = {};
+      if (query) {
+        if (query.category) filter.category = query.category;
+        if (query.status) filter.status = query.status = true;
+      }
+
+      const sortOption = {};
+      if (sort) {
+        sortOption.price = sort === "asc" ? 1 : -1;
+      }
+
+      const result = await Product.paginate(filter, {
+        limit: parseInt(limit),
+        page: parseInt(page),
+        sort: sortOption,
+        lean: true,
+      });
+
+      return {
+        status: "success",
+        payload: result.docs,
+        totalPages: result.totalPages,
+        prevPage: result.prevPage,
+        nextPage: result.nextPage,
+        page: result.page,
+        hasPrevPage: result.hasPrevPage,
+        hasNextPage: result.hasNextPage,
+        prevLink: result.prevPage
+          ? `/api/products?page=${result.prevPage}&limit=${limit}`
+          : null,
+        nextLink: result.nextPage
+          ? `/api/products?page=${result.nextPage}&limit=${limit}`
+          : null,
+      };
     } catch (error) {
       console.error("Error geting products:", error);
       throw new Error("Error geting products");
@@ -22,9 +56,9 @@ class ProductManager {
 
   async addProduct(productData) {
     try {
-      const isExists = await Product.findOne({ code: productData.code })
+      const isExists = await Product.findOne({ code: productData.code });
       if (isExists) {
-        throw new error("¡El código de producto ya existe!")
+        throw new Error("¡El código de producto ya existe!");
       }
 
       const product = new Product(productData);
