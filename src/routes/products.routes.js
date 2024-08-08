@@ -14,7 +14,9 @@ router.get("/", async (req, res) => {
       query: query ? JSON.parse(query) : {},
     };
     const productList = await productManager.getProducts(options);
-    res.json(productList);
+    res
+      .json(productList)
+      .render("home", { title: "Lista de productos", productList });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -54,7 +56,7 @@ router.put("/:pid", async (req, res) => {
 router.delete("/:pid", async (req, res) => {
   const { pid } = req.params;
   try {
-    const deletedProduct = await productManager.deleteProduct(pid);
+    await productManager.deleteProduct(pid);
     res.status(204).send();
   } catch {
     res.status(500).json({ error: error.message });

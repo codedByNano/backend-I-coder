@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   const result = await productManager.getProducts();
   const products = result.payload;
   const cleanedProducts = cleanProductData(products);
-  res.render("home", { title: "Home - Lista de Productos", cleanedProducts });
+  res.render("home", { title: "Home", cleanedProducts });
 });
 
 router.get("/realtimeproducts", async (req, res) => {

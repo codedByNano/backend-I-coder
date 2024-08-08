@@ -4,7 +4,7 @@ import CartManager from "../class/cartManager.js";
 const router = express.Router();
 const cartManager = new CartManager();
 
-router.post("/carts", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     await cartManager.createCart();
     res.status(201).json({ message: "Carrito creado" });
@@ -48,15 +48,28 @@ router.delete("/:cid/products/:pid", async (req, res) => {
   }
 });
 
-router.put("/:cid/products/:pid", async (req, res) => {
-  const { cid, pid } = req.params;
+router.put("/:cid", async (req, res) => {
+  const { cid } = req.params;
   const { products } = req.body;
+
+  if (!Array.isArray(products) || products.length === 0) {
+    return res.status(400).json({
+      error: "El cuerpo de la solicitud debe ser un array de productos.",
+    });
+  }
+
   try {
     const cart = await cartManager.getCartById(cid);
-    cart.products = products.map((product) => ({
-      product: product.product,
-      quantity: product.quantity,
-    }));
+    products.forEach((newProduct) => {
+      const isExists = cart.products.findIndex((product) =>
+        product.product.equals(newProduct.product)
+      );
+      if (isExists > -1) {
+        cart.products[isExists].quantity += newProduct.quantity;
+      } else {
+        cart.products.push(newProduct);
+      }
+    });
     await cart.save();
     res.status(200).json({ message: "Carrito actualizado" });
   } catch (error) {
