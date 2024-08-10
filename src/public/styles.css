@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: space-evenly;
+  padding-bottom: 30px;
 }
 
 .formContainer {

@@ -8,7 +8,7 @@ import viewsRouter from "./routes/views.routes.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
-import setupSocketHandlers from "./sockets/socketHandlers.js";
+import setupSocketHandlers from "./public/socketHandlers.js";
 import mongoose from "mongoose";
 
 const envPath = path.resolve(__dirname, "../.env");

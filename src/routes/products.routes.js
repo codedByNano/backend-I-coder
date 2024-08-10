@@ -14,9 +14,7 @@ router.get("/", async (req, res) => {
       query: query ? JSON.parse(query) : {},
     };
     const productList = await productManager.getProducts(options);
-    res
-      .json(productList)
-      .render("home", { title: "Lista de productos", productList });
+    res.render("index", { title: "Lista de productos", productList });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -26,7 +24,8 @@ router.get("/:pid", async (req, res) => {
   const { pid } = req.params;
   try {
     const product = await productManager.getProductById(pid);
-    res.status(201).json({ resultado: product });
+    const productPlain = product.toObject ? product.toObject() : product;
+    res.render("product", { title: "Detalles del producto", productPlain });
   } catch (error) {
     res.status(404).json({ error: error.message });
   }

@@ -12,7 +12,7 @@ class CartManager {
 
   async getCartById(id) {
     try {
-      const cart = await Cart.findById(id);
+      const cart = await Cart.findById(id).populate("products.product");
       if (!cart) throw new Error(`Carrito con id ${id} no encontrado`);
       if (cart.products.length === 0) return "Carrito vacío";
       return cart;
