@@ -64,6 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const cartId = getCartId();
+  console.log(cartId);
+
   if (!cartId) {
     await createCart();
   }
